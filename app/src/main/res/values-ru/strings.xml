@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Высота и Азимут</string>
+    <string name="sign_degree">°</string>
+    <string name="sign_minute">\'</string>
+    <string name="but_calc">Рассчитать</string>
+    <string name="but_clear">Очистить</string>
+    <string name="err_input">Введено ошибочное значение</string>
+    <string name="text_delta">δ:</string>
+    <string name="text_fic">φ<sub><small><small>c</small></small></sub>:</string>
+    <string name="text_tm">t<sub><small><small>m</small></small></sub>:</string>
+    <string name="text_hc">h<sub><small><small>c</small></small></sub>:</string>
+    <string name="text_Ac">A<sub><small><small>c</small></small></sub>:</string>
+
+    <string-array name="spin_ns">
+        <item>N</item>
+        <item>S</item>
+    </string-array>
+    <string-array name="spin_ew">
+        <item>E</item>
+        <item>W</item>
+    </string-array>
+
+</resources>
