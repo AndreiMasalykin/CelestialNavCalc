@@ -21,18 +21,18 @@ public class MainActivity extends ActionBarActivity {
         NORTH, SOUTH, EAST, WEST
     }
 
-    private String mSignDegree;
-    private String mSignMinute;
-    private String[] mNorthSouth;
-    private String[] mEastWest;
+    private String signDegree;
+    private String signMinute;
+    private String[] northSouth;
+    private String[] eastWest;
 
-    private EditText mEditTextDegreeDelta, mEditTextMinuteDelta;
-    private EditText mEditTextDegreeTm, mEditTextMinuteTm;
-    private EditText mEditTextDegreeFic, mEditTextMinuteFic;
-    private Spinner mSpinNorthSouthDelta, mSpinEastWestTm, mSpinNorthSouthFic;
+    private EditText editTextDegreeDelta, editTextMinuteDelta;
+    private EditText editTextDegreeTm, editTextMinuteTm;
+    private EditText editTextDegreeFic, editTextMinuteFic;
+    private Spinner spinNorthSouthDelta, spinEastWestTm, spinNorthSouthFic;
 
-    private TextView mTextViewAnswerHc, mTextViewAnswerAc;
-    private Button mButCalculate, mButClear;
+    private TextView textViewAnswerHc, textViewAnswerAc;
+    private Button butCalculate, butClear;
 
     private class Input {
         Double delta;
@@ -82,32 +82,32 @@ public class MainActivity extends ActionBarActivity {
             switch (v.getId()) {
                 case R.id.fic_degree:
                     if (value > 89.0d)
-                        mEditTextDegreeFic.setText("89");
+                        editTextDegreeFic.setText("89");
                     break;
 
                 case R.id.tm_degree:
                     if (value > 179.0d)
-                        mEditTextDegreeTm.setText("179");
+                        editTextDegreeTm.setText("179");
                     break;
 
                 case R.id.delta_degree:
                     if (value > 89.0d)
-                        mEditTextDegreeDelta.setText("89");
+                        editTextDegreeDelta.setText("89");
                     break;
 
                 case R.id.fic_minute:
                     if (value > 59.9d)
-                        mEditTextMinuteFic.setText("59.9");
+                        editTextMinuteFic.setText("59.9");
                     break;
 
                 case R.id.tm_minute:
                     if (value > 59.9d)
-                        mEditTextMinuteTm.setText("59.9");
+                        editTextMinuteTm.setText("59.9");
                     break;
 
                 case R.id.delta_minute:
                     if (value > 59.9d)
-                        mEditTextMinuteDelta.setText("59.9");
+                        editTextMinuteDelta.setText("59.9");
                     break;
             }
         }
@@ -134,8 +134,8 @@ public class MainActivity extends ActionBarActivity {
                     if (input == null)
                         return;
                     Result result = calculate(input);
-                    mTextViewAnswerHc.setText(result.hc);
-                    mTextViewAnswerAc.setText(result.ac);
+                    textViewAnswerHc.setText(result.hc);
+                    textViewAnswerAc.setText(result.ac);
                     break;
                 case R.id.but_clean:
                     clearAllFields();
@@ -149,10 +149,10 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSignDegree = getResources().getString(R.string.sign_degree);
-        mSignMinute = getResources().getString(R.string.sign_minute);
-        mNorthSouth = getResources().getStringArray(R.array.spin_ns);
-        mEastWest = getResources().getStringArray(R.array.spin_ew);
+        signDegree = getResources().getString(R.string.sign_degree);
+        signMinute = getResources().getString(R.string.sign_minute);
+        northSouth = getResources().getStringArray(R.array.spin_ns);
+        eastWest = getResources().getStringArray(R.array.spin_ew);
 
         initViews();
         setListeners();
@@ -160,70 +160,70 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void initViews() {
-        mEditTextDegreeDelta = (EditText) findViewById(R.id.delta_degree);
-        mEditTextMinuteDelta = (EditText) findViewById(R.id.delta_minute);
-        mEditTextDegreeTm = (EditText) findViewById(R.id.tm_degree);
-        mEditTextMinuteTm = (EditText) findViewById(R.id.tm_minute);
-        mEditTextDegreeFic = (EditText) findViewById(R.id.fic_degree);
-        mEditTextMinuteFic = (EditText) findViewById(R.id.fic_minute);
+        editTextDegreeDelta = (EditText) findViewById(R.id.delta_degree);
+        editTextMinuteDelta = (EditText) findViewById(R.id.delta_minute);
+        editTextDegreeTm = (EditText) findViewById(R.id.tm_degree);
+        editTextMinuteTm = (EditText) findViewById(R.id.tm_minute);
+        editTextDegreeFic = (EditText) findViewById(R.id.fic_degree);
+        editTextMinuteFic = (EditText) findViewById(R.id.fic_minute);
 
-        mSpinNorthSouthDelta = (Spinner) findViewById(R.id.delta_ns);
-        mSpinEastWestTm = (Spinner) findViewById(R.id.tm_ew);
-        mSpinNorthSouthFic = (Spinner) findViewById(R.id.fic_ns);
+        spinNorthSouthDelta = (Spinner) findViewById(R.id.delta_ns);
+        spinEastWestTm = (Spinner) findViewById(R.id.tm_ew);
+        spinNorthSouthFic = (Spinner) findViewById(R.id.fic_ns);
 
-        mTextViewAnswerHc = (TextView) findViewById(R.id.hc);
-        mTextViewAnswerAc = (TextView) findViewById(R.id.Ac);
+        textViewAnswerHc = (TextView) findViewById(R.id.hc);
+        textViewAnswerAc = (TextView) findViewById(R.id.Ac);
 
-        mButCalculate = (Button) findViewById(R.id.but_calculate);
-        mButClear = (Button) findViewById(R.id.but_clean);
+        butCalculate = (Button) findViewById(R.id.but_calculate);
+        butClear = (Button) findViewById(R.id.but_clean);
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, mNorthSouth);
+                android.R.layout.simple_spinner_item, northSouth);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinNorthSouthDelta.setAdapter(adapter);
-        mSpinNorthSouthFic.setAdapter(adapter);
+        spinNorthSouthDelta.setAdapter(adapter);
+        spinNorthSouthFic.setAdapter(adapter);
 
         adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, mEastWest);
+                android.R.layout.simple_spinner_item, eastWest);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinEastWestTm.setAdapter(adapter);
+        spinEastWestTm.setAdapter(adapter);
 
     }
 
     private void setListeners() {
 
         MyOnClickListener onClickListener = new MyOnClickListener();
-        mButCalculate.setOnClickListener(onClickListener);
-        mButClear.setOnClickListener(onClickListener);
+        butCalculate.setOnClickListener(onClickListener);
+        butClear.setOnClickListener(onClickListener);
 
-        mEditTextDegreeDelta.addTextChangedListener(new MyTextWatcher(
-                mEditTextDegreeDelta));
-        mEditTextDegreeTm.addTextChangedListener(new MyTextWatcher(
-                mEditTextDegreeTm));
-        mEditTextDegreeFic.addTextChangedListener(new MyTextWatcher(
-                mEditTextDegreeFic));
-        mEditTextMinuteDelta.addTextChangedListener(new MyTextWatcher(
-                mEditTextMinuteDelta));
-        mEditTextMinuteTm.addTextChangedListener(new MyTextWatcher(
-                mEditTextMinuteTm));
-        mEditTextMinuteFic.addTextChangedListener(new MyTextWatcher(
-                mEditTextMinuteFic));
+        editTextDegreeDelta.addTextChangedListener(new MyTextWatcher(
+                editTextDegreeDelta));
+        editTextDegreeTm.addTextChangedListener(new MyTextWatcher(
+                editTextDegreeTm));
+        editTextDegreeFic.addTextChangedListener(new MyTextWatcher(
+                editTextDegreeFic));
+        editTextMinuteDelta.addTextChangedListener(new MyTextWatcher(
+                editTextMinuteDelta));
+        editTextMinuteTm.addTextChangedListener(new MyTextWatcher(
+                editTextMinuteTm));
+        editTextMinuteFic.addTextChangedListener(new MyTextWatcher(
+                editTextMinuteFic));
     }
 
     private Input readInput() {
         Double delta, tm, fic;
         try {
-            double delta_degree = Double.parseDouble(mEditTextDegreeDelta
+            double delta_degree = Double.parseDouble(editTextDegreeDelta
                     .getText().toString());
-            double delta_minute = Double.parseDouble(mEditTextMinuteDelta
+            double delta_minute = Double.parseDouble(editTextMinuteDelta
                     .getText().toString());
-            double tm_degree = Double.parseDouble(mEditTextDegreeTm.getText()
+            double tm_degree = Double.parseDouble(editTextDegreeTm.getText()
                     .toString());
-            double tm_minute = Double.parseDouble(mEditTextMinuteTm.getText()
+            double tm_minute = Double.parseDouble(editTextMinuteTm.getText()
                     .toString());
-            double fic_degree = Double.parseDouble(mEditTextDegreeFic.getText()
+            double fic_degree = Double.parseDouble(editTextDegreeFic.getText()
                     .toString());
-            double fic_minute = Double.parseDouble(mEditTextMinuteFic.getText()
+            double fic_minute = Double.parseDouble(editTextMinuteFic.getText()
                     .toString());
 
             delta = delta_degree + delta_minute / 60.0d;
@@ -235,9 +235,9 @@ public class MainActivity extends ActionBarActivity {
             return null;
         }
 
-        Direction directionDelta = readSpinners(mSpinNorthSouthDelta);
-        Direction directionTm = readSpinners(mSpinEastWestTm);
-        Direction directionFic = readSpinners(mSpinNorthSouthFic);
+        Direction directionDelta = readSpinners(spinNorthSouthDelta);
+        Direction directionTm = readSpinners(spinEastWestTm);
+        Direction directionFic = readSpinners(spinNorthSouthFic);
 
         if (directionDelta == Direction.SOUTH)
             delta *= -1.0d;
@@ -295,15 +295,15 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private String formatHc(Double hc) {
-        return String.format("%2.0f", Math.floor(hc)) + mSignDegree + " "
+        return String.format("%2.0f", Math.floor(hc)) + signDegree + " "
                 + String.format("%.1f", (hc - Math.floor(hc)) * 60)
-                + mSignMinute;
+                + signMinute;
     }
 
     private String formatAc(Double ac, Input inputData) {
-        String tempAc = String.format("%2.0f", Math.floor(ac)) + mSignDegree
+        String tempAc = String.format("%2.0f", Math.floor(ac)) + signDegree
                 + " " + String.format("%.1f", (ac - Math.floor(ac)) * 60)
-                + mSignMinute;
+                + signMinute;
 
         tempAc += " N";
 
@@ -315,13 +315,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void clearAllFields() {
-        mEditTextDegreeDelta.setText("");
-        mEditTextMinuteDelta.setText("");
-        mEditTextDegreeTm.setText("");
-        mEditTextMinuteTm.setText("");
-        mEditTextDegreeFic.setText("");
-        mEditTextMinuteFic.setText("");
-        mTextViewAnswerHc.setText("");
-        mTextViewAnswerAc.setText("");
+        editTextDegreeDelta.setText("");
+        editTextMinuteDelta.setText("");
+        editTextDegreeTm.setText("");
+        editTextMinuteTm.setText("");
+        editTextDegreeFic.setText("");
+        editTextMinuteFic.setText("");
+        textViewAnswerHc.setText("");
+        textViewAnswerAc.setText("");
     }
 }

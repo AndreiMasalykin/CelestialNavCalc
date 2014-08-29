@@ -2,17 +2,17 @@
 <resources>
 
     <string name="app_name">Star Altitude and Azimuth</string>
-    <string name="sign_degree">°</string>
-    <string name="sign_minute">\'</string>
+    <string name="sign_degree" translatable="false">°</string>
+    <string name="sign_minute" translatable="false">\'</string>
     <string name="but_calc">Calculate</string>
     <string name="but_clear">Clear</string>
     <string name="err_input">Wrong value</string>
 
-    <string name="text_delta">δ:</string>
-    <string name="text_fic">φ<sub><small><small><small>c</small></small></small></sub>:</string>
-    <string name="text_tm">t<sub><small><small><small>m</small></small></small></sub>:</string>
-    <string name="text_hc">h<sub><small><small><small>c</small></small></small></sub>:</string>
-    <string name="text_Ac">A<sub><small><small><small>c</small></small></small></sub>:</string>
+    <string name="text_delta" translatable="false">δ:</string>
+    <string name="text_fic" translatable="false">φ<sub><small><small><small>c</small></small></small></sub>:</string>
+    <string name="text_tm" translatable="false">t<sub><small><small><small>m</small></small></small></sub>:</string>
+    <string name="text_hc" translatable="false">h<sub><small><small><small>c</small></small></small></sub>:</string>
+    <string name="text_Ac" translatable="false">A<sub><small><small><small>c</small></small></small></sub>:</string>
 
     <string name="text_delta_help">Declination</string>
     <string name="text_fic_help">Reckoned latitude</string>
@@ -20,16 +20,15 @@
     <string name="text_hc_help">Star altitude</string>
     <string name="text_Ac_help">Star azimuth</string>
 
-    <string name="text_delta_deg"><small><small>0 … 89</small></small></string>
-    <string name="text_tm_deg"><small><small>0 … 179</small></small></string>
-    <string name="text_minutes"><small><small>0 … 59.9</small></small></string>
+    <string name="text_delta_deg" translatable="false"><small><small>0 … 89</small></small></string>
+    <string name="text_tm_deg" translatable="false"><small><small>0 … 179</small></small></string>
+    <string name="text_minutes" translatable="false"><small><small>0 … 59.9</small></small></string>
 
-
-    <string-array name="spin_ns">
+    <string-array name="spin_ns" translatable="false">
         <item>N</item>
         <item>S</item>
     </string-array>
-    <string-array name="spin_ew">
+    <string-array name="spin_ew" translatable="false">
         <item>E</item>
         <item>W</item>
     </string-array>
