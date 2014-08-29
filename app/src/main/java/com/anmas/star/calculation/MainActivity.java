@@ -1,4 +1,4 @@
-package com.anmas.celestial.calculation;
+package com.anmas.star.calculation;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -13,7 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.anmas.celestialcalc.R;
+import com.anmas.starcalc.R;
 
 public class MainActivity extends ActionBarActivity {
 
