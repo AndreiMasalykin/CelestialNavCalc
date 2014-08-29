@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Celestial azimuth and altitude</string>
+    <string name="app_name">Star Altitude and Azimuth</string>
     <string name="sign_degree">°</string>
     <string name="sign_minute">\'</string>
     <string name="but_calc">Calculate</string>
     <string name="but_clear">Clear</string>
     <string name="err_input">Wrong value</string>
+
     <string name="text_delta">δ:</string>
-    <string name="text_fic">φ<sub><small><small>c</small></small></sub>:</string>
-    <string name="text_tm">t<sub><small><small>m</small></small></sub>:</string>
-    <string name="text_hc">h<sub><small><small>c</small></small></sub>:</string>
-    <string name="text_Ac">A<sub><small><small>c</small></small></sub>:</string>
+    <string name="text_fic">φ<sub><small><small><small>c</small></small></small></sub>:</string>
+    <string name="text_tm">t<sub><small><small><small>m</small></small></small></sub>:</string>
+    <string name="text_hc">h<sub><small><small><small>c</small></small></small></sub>:</string>
+    <string name="text_Ac">A<sub><small><small><small>c</small></small></small></sub>:</string>
+
+    <string name="text_delta_help">Declination</string>
+    <string name="text_fic_help">Reckoned latitude</string>
+    <string name="text_tm_help">Hour angle</string>
+    <string name="text_hc_help">Star altitude</string>
+    <string name="text_Ac_help">Star azimuth</string>
+
+    <string name="text_delta_deg"><small><small>0 … 89</small></small></string>
+    <string name="text_tm_deg"><small><small>0 … 179</small></small></string>
+    <string name="text_minutes"><small><small>0 … 59.9</small></small></string>
+
 
     <string-array name="spin_ns">
         <item>N</item>
