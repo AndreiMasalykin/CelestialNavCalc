@@ -1,7 +1,7 @@
-package com.anmas.selestial.calculation;
+package com.anmas.celestial.calculation;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -13,7 +13,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+import com.anmas.celestialcalc.R;
+
+public class MainActivity extends ActionBarActivity {
 
     private enum Direction {
         NORTH, SOUTH, EAST, WEST
@@ -129,6 +131,8 @@ public class MainActivity extends Activity {
             switch (v.getId()) {
                 case R.id.but_calculate:
                     Input input = readInput();
+                    if (input == null)
+                        return;
                     Result result = calculate(input);
                     mTextViewAnswerHc.setText(result.hc);
                     mTextViewAnswerAc.setText(result.ac);
@@ -227,12 +231,8 @@ public class MainActivity extends Activity {
             fic = fic_degree + fic_minute / 60.0d;
 
         } catch (NumberFormatException e) {
-            Toast.makeText(this, getResources().getString(R.string.err_input),
-                    Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-            delta = 0.0d;
-            tm = 0.0d;
-            fic = 0.0d;
+            Toast.makeText(this, getResources().getString(R.string.err_input), Toast.LENGTH_SHORT).show();
+            return null;
         }
 
         Direction directionDelta = readSpinners(mSpinNorthSouthDelta);
