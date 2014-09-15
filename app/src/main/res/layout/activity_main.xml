@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/text_delta_help" />
+        android:text="@string/text_fic_help" />
 
     <TableRow
         android:layout_width="match_parent"
@@ -126,7 +126,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/text_fic_help" />
+        android:text="@string/text_delta_help" />
 
     <TableRow
         android:layout_width="match_parent"
@@ -234,24 +234,4 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </TableRow>
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/but_calculate"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/but_calc" />
-
-        <Button
-            android:id="@+id/but_clean"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/but_clear" />
-    </TableRow>
 </TableLayout>

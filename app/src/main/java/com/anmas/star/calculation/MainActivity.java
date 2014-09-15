@@ -4,10 +4,11 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -17,132 +18,30 @@ import com.anmas.starcalc.R;
 
 public class MainActivity extends ActionBarActivity {
 
-    private enum Direction {
-        NORTH, SOUTH, EAST, WEST
-    }
-
     private String signDegree;
     private String signMinute;
     private String[] northSouth;
     private String[] eastWest;
 
+    /*Views*/
     private EditText editTextDegreeDelta, editTextMinuteDelta;
     private EditText editTextDegreeTm, editTextMinuteTm;
     private EditText editTextDegreeFic, editTextMinuteFic;
     private Spinner spinNorthSouthDelta, spinEastWestTm, spinNorthSouthFic;
-
     private TextView textViewAnswerHc, textViewAnswerAc;
-    private Button butCalculate, butClear;
 
-    private class Input {
-        Double delta;
-        Double tm;
-        Double fic;
-        Direction directionDelta, directionTm, directionFic;
+    private AdapterView.OnItemSelectedListener onSpinnerItemClickListener = new AdapterView.OnItemSelectedListener() {
 
-        public Input(Double delta, Direction directionDelta, Double tm,
-                     Direction directionTm, Double fic, Direction directionFic) {
-            this.delta = delta;
-            this.tm = tm;
-            this.fic = fic;
-            this.directionDelta = directionDelta;
-            this.directionTm = directionTm;
-            this.directionFic = directionFic;
-        }
-    }
-
-    private class Result {
-        String hc;
-        String ac;
-
-        public Result(String hc, String ac) {
-            this.hc = hc;
-            this.ac = ac;
-        }
-
-    }
-
-    private class MyTextWatcher implements TextWatcher {
-        private View v;
-        private Double value;
-
-        MyTextWatcher(View v) {
-            this.v = v;
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            doIt();
         }
 
         @Override
-        public void afterTextChanged(Editable s) {
-            String string = String.valueOf(s);
-            try {
-                value = Double.valueOf(string);
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-                value = 0.0d;
-            }
-            switch (v.getId()) {
-                case R.id.fic_degree:
-                    if (value > 89.0d)
-                        editTextDegreeFic.setText("89");
-                    break;
-
-                case R.id.tm_degree:
-                    if (value > 179.0d)
-                        editTextDegreeTm.setText("179");
-                    break;
-
-                case R.id.delta_degree:
-                    if (value > 89.0d)
-                        editTextDegreeDelta.setText("89");
-                    break;
-
-                case R.id.fic_minute:
-                    if (value > 59.9d)
-                        editTextMinuteFic.setText("59.9");
-                    break;
-
-                case R.id.tm_minute:
-                    if (value > 59.9d)
-                        editTextMinuteTm.setText("59.9");
-                    break;
-
-                case R.id.delta_minute:
-                    if (value > 59.9d)
-                        editTextMinuteDelta.setText("59.9");
-                    break;
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count,
-                                      int after) {
+        public void onNothingSelected(AdapterView<?> parent) {
 
         }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before,
-                                  int count) {
-
-        }
-    }
-
-    private class MyOnClickListener implements OnClickListener {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.but_calculate:
-                    Input input = readInput();
-                    if (input == null)
-                        return;
-                    Result result = calculate(input);
-                    textViewAnswerHc.setText(result.hc);
-                    textViewAnswerAc.setText(result.ac);
-                    break;
-                case R.id.but_clean:
-                    clearAllFields();
-                    break;
-            }
-        }
-    }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,6 +56,7 @@ public class MainActivity extends ActionBarActivity {
         initViews();
         setListeners();
 
+        Toast.makeText(this, getResources().getString(R.string.err_empty_field), Toast.LENGTH_SHORT).show();
     }
 
     private void initViews() {
@@ -174,28 +74,23 @@ public class MainActivity extends ActionBarActivity {
         textViewAnswerHc = (TextView) findViewById(R.id.hc);
         textViewAnswerAc = (TextView) findViewById(R.id.Ac);
 
-        butCalculate = (Button) findViewById(R.id.but_calculate);
-        butClear = (Button) findViewById(R.id.but_clean);
-
         ArrayAdapter adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, northSouth);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinNorthSouthDelta.setAdapter(adapter);
+        spinNorthSouthDelta.setOnItemSelectedListener(onSpinnerItemClickListener);
         spinNorthSouthFic.setAdapter(adapter);
+        spinNorthSouthFic.setOnItemSelectedListener(onSpinnerItemClickListener);
 
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, eastWest);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinEastWestTm.setAdapter(adapter);
+        spinEastWestTm.setOnItemSelectedListener(onSpinnerItemClickListener);
 
     }
 
     private void setListeners() {
-
-        MyOnClickListener onClickListener = new MyOnClickListener();
-        butCalculate.setOnClickListener(onClickListener);
-        butClear.setOnClickListener(onClickListener);
-
         editTextDegreeDelta.addTextChangedListener(new MyTextWatcher(
                 editTextDegreeDelta));
         editTextDegreeTm.addTextChangedListener(new MyTextWatcher(
@@ -208,6 +103,17 @@ public class MainActivity extends ActionBarActivity {
                 editTextMinuteTm));
         editTextMinuteFic.addTextChangedListener(new MyTextWatcher(
                 editTextMinuteFic));
+    }
+
+    private void doIt() {
+        if (!allTextFieldsAreFilled())
+            return;
+        Input input = readInput();
+        if (input == null)
+            return;
+        Result result = calculate(input);
+        textViewAnswerHc.setText(result.hc);
+        textViewAnswerAc.setText(result.ac);
     }
 
     private Input readInput() {
@@ -231,7 +137,11 @@ public class MainActivity extends ActionBarActivity {
             fic = fic_degree + fic_minute / 60.0d;
 
         } catch (NumberFormatException e) {
-            Toast.makeText(this, getResources().getString(R.string.err_input), Toast.LENGTH_SHORT).show();
+            if (allTextFieldsAreFilled())
+                Toast.makeText(this, getResources().getString(R.string.err_input), Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(this, getResources().getString(R.string.err_empty_field), Toast.LENGTH_SHORT).show();
+            clearResults();
             return null;
         }
 
@@ -250,6 +160,20 @@ public class MainActivity extends ActionBarActivity {
 
         return new Input(delta, directionDelta, tm, directionTm, fic,
                 directionFic);
+    }
+
+    private boolean allTextFieldsAreFilled() {
+        return isTextViewFilled(editTextDegreeDelta) &&
+                isTextViewFilled(editTextMinuteDelta) &&
+                isTextViewFilled(editTextDegreeTm) &&
+                isTextViewFilled(editTextMinuteTm) &&
+                isTextViewFilled(editTextDegreeFic) &&
+                isTextViewFilled(editTextMinuteFic);
+
+    }
+
+    private boolean isTextViewFilled(TextView view) {
+        return view.getText().toString().length() > 0;
     }
 
     private Direction readSpinners(Spinner v) {
@@ -321,7 +245,124 @@ public class MainActivity extends ActionBarActivity {
         editTextMinuteTm.setText("");
         editTextDegreeFic.setText("");
         editTextMinuteFic.setText("");
+        clearResults();
+    }
+
+    private void clearResults() {
         textViewAnswerHc.setText("");
         textViewAnswerAc.setText("");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.act_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_clear:
+                clearAllFields();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private enum Direction {
+        NORTH, SOUTH, EAST, WEST
+    }
+
+    private class Input {
+        Double delta;
+        Double tm;
+        Double fic;
+        Direction directionDelta, directionTm, directionFic;
+
+        public Input(Double delta, Direction directionDelta, Double tm,
+                     Direction directionTm, Double fic, Direction directionFic) {
+            this.delta = delta;
+            this.tm = tm;
+            this.fic = fic;
+            this.directionDelta = directionDelta;
+            this.directionTm = directionTm;
+            this.directionFic = directionFic;
+        }
+    }
+
+    private class Result {
+        String hc;
+        String ac;
+
+        public Result(String hc, String ac) {
+            this.hc = hc;
+            this.ac = ac;
+        }
+
+    }
+
+    private class MyTextWatcher implements TextWatcher {
+        private View v;
+        private Double value;
+
+        MyTextWatcher(View v) {
+            this.v = v;
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String string = String.valueOf(s);
+            try {
+                value = Double.valueOf(string);
+            } catch (NumberFormatException e) {
+                clearResults();
+                return;
+            }
+            switch (v.getId()) {
+                case R.id.fic_degree:
+                    if (value > 89.0d)
+                        editTextDegreeFic.setText("89");
+                    break;
+
+                case R.id.tm_degree:
+                    if (value > 179.0d)
+                        editTextDegreeTm.setText("179");
+                    break;
+
+                case R.id.delta_degree:
+                    if (value > 89.0d)
+                        editTextDegreeDelta.setText("89");
+                    break;
+
+                case R.id.fic_minute:
+                    if (value > 59.9d)
+                        editTextMinuteFic.setText("59.9");
+                    break;
+
+                case R.id.tm_minute:
+                    if (value > 59.9d)
+                        editTextMinuteTm.setText("59.9");
+                    break;
+
+                case R.id.delta_minute:
+                    if (value > 59.9d)
+                        editTextMinuteDelta.setText("59.9");
+                    break;
+            }
+            doIt();
+
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+
+        }
     }
 }

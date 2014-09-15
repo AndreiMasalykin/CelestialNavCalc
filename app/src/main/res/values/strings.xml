@@ -6,6 +6,7 @@
     <string name="sign_minute" translatable="false">\'</string>
     <string name="but_calc">Calculate</string>
     <string name="but_clear">Clear</string>
+    <string name="err_empty_field">Fill in all the text fields</string>
     <string name="err_input">Wrong value</string>
 
     <string name="text_delta" translatable="false">δ:</string>

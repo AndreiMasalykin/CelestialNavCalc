@@ -3,6 +3,7 @@
     <string name="app_name">Высота и Азимут</string>
     <string name="but_calc">Рассчитать</string>
     <string name="but_clear">Очистить</string>
+    <string name="err_empty_field">Заполните все поля</string>
     <string name="err_input">Введено ошибочное значение</string>
 
     <string name="text_delta_help">Склонение светила</string>
